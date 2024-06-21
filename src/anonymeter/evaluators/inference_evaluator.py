@@ -163,6 +163,9 @@ class InferenceEvaluator:
         self._aux_cols = aux_cols
         self._evaluated = False
 
+        if (not isinstance(secret, str)) or (secret not in ori.columns):
+            raise ValueError("secret must be a string corresponding to an existing column")
+                             
     def _attack(self, target: pd.DataFrame, naive: bool, n_jobs: int) -> int:
         return _run_attack(
             target=target,
